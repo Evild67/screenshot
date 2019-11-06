@@ -1,0 +1,5 @@
+
+[build]
+  command = "yarn generate"
+  publish = "dist/"
+  functions = "functions/"
