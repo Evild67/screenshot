@@ -11,7 +11,7 @@
         :disabled="!url"
       >Screenshot!</v-btn>
       <v-progress-linear v-else indeterminate color="cyan"></v-progress-linear>
-      <div id="result" aria-live="polite"></div>
+      <v-img v-if="imagesrc" :src="imagesrc"></v-img>
     </v-flex>
   </v-layout>
 </template>
@@ -22,7 +22,8 @@ export default {
     return {
       url: "",
       takingScreenshot: false,
-      upload: false
+      upload: false,
+      imagesrc: null
     };
   },
   methods: {
@@ -43,21 +44,14 @@ export default {
         const resultJSON = await result.json();
 
         if (!resultJSON.data && !resultJSON.data.link) {
-          return (document.getElementById("result").textContent =
-            "Error capturing screenshot");
+          throw new Error("Error capturing screenshot");
         }
 
-        const img = document.createElement("img");
-
         this.upload
-          ? (img.src = resultJSON.data.link)
-          : (img.src = `data:image/png;base64, ${resultJSON.data}`);
-        document.getElementById("result").innerHTML = img.outerHTML;
+          ? (this.imagesrc = resultJSON.data.link)
+          : (this.imagesrc = `data:image/png;base64, ${resultJSON.data}`);
       } catch (error) {
         console.log(error);
-        document.getElementById(
-          "result"
-        ).textContent = `Error: ${error.toString()}`;
       } finally {
         this.takingScreenshot = false;
       }
