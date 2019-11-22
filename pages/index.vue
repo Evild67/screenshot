@@ -47,11 +47,15 @@ export default {
     async screenshot() {
       this.imagesrc = null;
       this.takingScreenshot = true;
+      let url = this.url;
+      if (!s.match(/^[a-zA-Z]+:\/\//)) {
+        url = "http://" + url;
+      }
       const options = {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=utf-8" },
         body: JSON.stringify({
-          pageToScreenshot: this.url,
+          pageToScreenshot: url,
           upload: this.upload
         })
       };
