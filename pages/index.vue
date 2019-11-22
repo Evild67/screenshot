@@ -38,7 +38,6 @@ export default {
         })
       };
 
-      document.getElementById("result").textContent = "Please wait...";
       try {
         const result = await fetch("/.netlify/functions/screenshot", options);
         const resultJSON = await result.json();
