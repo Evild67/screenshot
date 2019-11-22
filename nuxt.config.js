@@ -64,9 +64,8 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
+    transpile: ["vuetify/lib"],
+    extractCSS: true,
     extend(config, ctx) {}
   }
 };
