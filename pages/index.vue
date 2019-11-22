@@ -48,7 +48,7 @@ export default {
       this.imagesrc = null;
       this.takingScreenshot = true;
       let url = this.url;
-      if (!s.match(/^[a-zA-Z]+:\/\//)) {
+      if (!url.match(/^[a-zA-Z]+:\/\//)) {
         url = "http://" + url;
       }
       const options = {
