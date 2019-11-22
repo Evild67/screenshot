@@ -8,10 +8,14 @@
         v-if="!takingScreenshot"
         @click="screenshot"
         color="primary"
-        :disabled="!url"
+        :disabled="!validURL(url)"
       >Screenshot!</v-btn>
       <v-progress-linear v-else indeterminate color="cyan"></v-progress-linear>
-      <v-img v-if="imagesrc" :src="imagesrc"></v-img>
+      <v-container>
+        <v-layout>
+          <v-img v-if="imagesrc" :src="imagesrc"></v-img>
+        </v-layout>
+      </v-container>
     </v-flex>
   </v-layout>
 </template>
@@ -28,7 +32,21 @@ export default {
     };
   },
   methods: {
+    validURL(myURL) {
+      var pattern = new RegExp(
+        "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + //port
+        "(\\?[;&amp;a-z\\d%_.~+=-]*)?" + // query string
+          "(\\#[-a-z\\d_]*)?$",
+        "i"
+      );
+      return pattern.test(myURL);
+    },
+
     async screenshot() {
+      this.imagesrc = null;
       this.takingScreenshot = true;
       const options = {
         method: "POST",
