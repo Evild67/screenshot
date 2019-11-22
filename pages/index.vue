@@ -27,8 +27,7 @@ export default {
       url: "",
       takingScreenshot: false,
       upload: false,
-      imagesrc:
-        "https://images.prismic.io/dominique-haasfr/c0999fc58f823ee79869225924a04bafefd163d8_emoji.jpg?auto=compress,format"
+      imagesrc: null
     };
   },
   methods: {
